@@ -5,13 +5,18 @@ export 'package:untitled1/Views/auth/login_screen.dart';
 export 'package:untitled1/Views/auth/signup_screen.dart';
 export 'package:untitled1/Views/auth/forgot_screen.dart';
 
-
 //Models
 
-
-
-
 //Controller
+
+//Assets
+export 'package:untitled1/Utils/assets_path.dart';
+
+//Color
+export  'package:untitled1/Utils/colors.dart';
+
+//introduction
+export  'package:introduction_screen/introduction_screen.dart';
 
 
 // pkg
@@ -27,4 +32,3 @@ export 'package:untitled1/Views/auth/forgot_screen.dart';
 
 //import 'package:image_picker/image_picker.dart';
 
-//import 'package:introduction_screen/introduction_screen.dart';
