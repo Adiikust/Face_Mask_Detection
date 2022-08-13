@@ -48,6 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         borderRadius: BorderRadius.all(Radius.circular(13)),
                       ),
                     ),
+                    controller: emailController,
                     validator: MultiValidator([
                       RequiredValidator(errorText: 'Please enter your Email'),
                       EmailValidator(errorText: 'Please enter Valida Email'),
@@ -66,9 +67,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       borderRadius: BorderRadius.all(Radius.circular(13)),
                     ),
                   ),
+                    controller: passwordController,
                     validator: MultiValidator([
                       RequiredValidator(errorText: 'Please enter your Password'),
-
+                      MinLengthValidator(8, errorText: 'Password must be at least 8 digits long'),
+                      PatternValidator(r'(?=.*?[#?!@$%^&*-])', errorText: 'Passwords must have at least one special character'),
                     ]),
                 ),
                   SizedBox(height: data.size.height * 0.01),
@@ -85,6 +88,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   GestureDetector(
                     onTap: (){
                       if(_formKey.currentState!.validate()) {
+                        setState((){
+                          email =emailController.text.trim();
+                          password =passwordController.text.trim();
+                        });
                         Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen(),));
                       }
                     },

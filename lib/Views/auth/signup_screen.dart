@@ -13,8 +13,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
   var email ="";
   var password ="";
+  var conformPwd ="";
+  var name ="";
+  final nameController =TextEditingController();
   final emailController =TextEditingController();
   final passwordController =TextEditingController();
+  final conformController =TextEditingController();
   @override
   Widget build(BuildContext context) {
     final data = MediaQuery.of(context);
@@ -43,9 +47,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       borderRadius: BorderRadius.all(Radius.circular(13)),
                     ),
                   ),
+                  obscureText: true,
+                  controller: nameController,
                   validator: MultiValidator([
                     RequiredValidator(errorText: 'Please enter your Name'),
-                    EmailValidator(errorText: 'Please enter Valida Email'),
                   ]),
                 ),
                 SizedBox(height: data.size.height * 0.02),
@@ -60,13 +65,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       borderRadius: BorderRadius.all(Radius.circular(13)),
                     ),
                   ),
+                  obscureText: true,
+                  controller: emailController,
                   validator: MultiValidator([
                     RequiredValidator(errorText: 'Please enter your Email'),
                     EmailValidator(errorText: 'Please enter Valida Email'),
-                  ]),
+                    ]),
                 ),
                 SizedBox(height: data.size.height * 0.02),
                 TextFormField(
+                  obscureText: true,
                   decoration:  const InputDecoration(
                     hintText: "Enter Password",
                     labelText: "Password",
@@ -77,9 +85,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       borderRadius: BorderRadius.all(Radius.circular(13)),
                     ),
                   ),
+                  controller: passwordController,
+                  onChanged: (val){
+                    password = val;
+                  },
                   validator: MultiValidator([
-                    RequiredValidator(errorText: 'Please enter your Email'),
-                    MinLengthValidator(8, errorText: 'password must be at least 8 digits long'),
+                    RequiredValidator(errorText: 'Please enter your Password'),
+                    MinLengthValidator(8, errorText: 'Password must be at least 8 digits long'),
                     PatternValidator(r'(?=.*?[#?!@$%^&*-])', errorText: 'passwords must have at least one special character'),
                   ]),
                 ),
@@ -95,15 +107,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       borderRadius: BorderRadius.all(Radius.circular(13)),
                     ),
                   ),
-                  validator: MultiValidator([
-                    RequiredValidator(errorText: 'Please enter your Email'),
-                    EmailValidator(errorText: 'Please enter Valida Email'),
-                  ]),
+                    controller: conformController,
+
+                    validator: (value) => MatchValidator(errorText: 'Passwords do not match').validateMatch(conformPwd, password),
+
                 ),
                 SizedBox(height: data.size.height * 0.03),
                 GestureDetector(
                   onTap: (){
                     if(_formKey.currentState!.validate()) {
+                      setState((){
+                        name=nameController.text.trim();
+                        email=emailController.text.trim();
+                        password=passwordController.text.trim();
+                        conformPwd=conformController.text.trim();
+                      });
                       Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen(),));
                     }},
                   child: Container(

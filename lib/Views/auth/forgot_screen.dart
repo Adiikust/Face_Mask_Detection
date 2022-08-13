@@ -12,9 +12,7 @@ class ForgotScreen extends StatefulWidget {
 class _ForgotScreenState extends State<ForgotScreen> {
   final _formKey = GlobalKey<FormState>();
   var email ="";
-  var password ="";
   final emailController =TextEditingController();
-  final passwordController =TextEditingController();
   @override
   Widget build(BuildContext context) {
     final data =MediaQuery.of(context);
@@ -47,18 +45,34 @@ class _ForgotScreenState extends State<ForgotScreen> {
                         borderRadius: BorderRadius.all(Radius.circular(13)),
                       ),
                     ),
+                    obscureText: true,
+                    controller: emailController,
+                    validator: MultiValidator([
+                      RequiredValidator(errorText: 'Please enter your Email'),
+                      EmailValidator(errorText: 'Please enter Valida Email'),
+                    ]),
                   ),
 
                   SizedBox(height: data.size.height * 0.04),
-                  Container(
-                    width: double.infinity,
-                    height: data.size.height * 0.07,
-                    alignment: Alignment.center,
-                    color: AppColors.kBlue,
-                    child: const Text("Forgot Password",
-                        style: TextStyle(fontSize: 17,
-                          fontWeight: FontWeight.bold,
-                        )),
+                  GestureDetector(
+                    onTap: (){
+                      if(_formKey.currentState!.validate()) {
+                        setState((){
+                          email=emailController.text.trim();
+                        });
+
+                      }
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      height: data.size.height * 0.07,
+                      alignment: Alignment.center,
+                      color: AppColors.kBlue,
+                      child: const Text("Forgot Password",
+                          style: TextStyle(fontSize: 17,
+                            fontWeight: FontWeight.bold,
+                          )),
+                    ),
                   ),
                   SizedBox(height: data.size.height * 0.04),
                   Row(
