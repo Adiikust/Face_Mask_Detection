@@ -1,7 +1,6 @@
 
 import 'package:untitled1/Controller/export/export_all.dart';
 
-
 void main() {
   runApp(const MyApp());
 }

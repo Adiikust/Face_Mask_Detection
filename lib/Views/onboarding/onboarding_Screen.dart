@@ -31,12 +31,16 @@ class OnBoardingScreen extends StatelessWidget {
     return  Scaffold(
     body: IntroductionScreen(
       done: const Text("Done",style: TextStyle(fontSize: 18,),),
-      onDone: (){},
+      onDone: (){
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const LoginScreen()));
+      },
 
 
-      onSkip: (){},
       skip: const Text("Skip",style: TextStyle(fontSize: 18,),),
       showSkipButton: true,
+      onSkip: (){ Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const LoginScreen()));},
 
 
       next: const Text('Next',style: TextStyle(fontSize: 18,),),

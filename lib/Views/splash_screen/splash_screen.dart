@@ -1,5 +1,9 @@
 
+
+import 'dart:async';
+
 import 'package:untitled1/Controller/export/export_all.dart';
+
 
 
 class SplashScreen extends StatefulWidget {
@@ -8,21 +12,13 @@ class SplashScreen extends StatefulWidget {
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
-
 class _SplashScreenState extends State<SplashScreen> {
   @override
-
- /* void initState() {
-    super.initState();
-    const SplashScreen();
-  }*/
-
-  /*Timer ( const Duration( seconds: 3), () {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (BuildContext context) => const LoginScreen()));
-    });*/
-  @override
   Widget build(BuildContext context) {
+    Timer(const Duration(seconds: 3), () {
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const OnBoardingScreen()));
+    });
 
     final data = MediaQuery.of(context);
     return  Scaffold(
